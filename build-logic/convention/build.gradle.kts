@@ -44,5 +44,17 @@ gradlePlugin {
             id = "com.mcon.agnum.detekt"
             implementationClass = "DetektConventionPlugin"
         }
+        register("screenshotTest") {
+            id = "com.mcon.agnum.screenshottest"
+            implementationClass = "ScreenshotTestConventionPlugin"
+        }
+        register("unitTest") {
+            id = "com.mcon.agnum.unittest"
+            implementationClass = "UnitTestConventionPlugin"
+        }
+        register("mavenPublish") {
+            id = "com.mcon.agnum.maven.publish"
+            implementationClass = "MavenPublishConventionPlugin"
+        }
     }
 }
