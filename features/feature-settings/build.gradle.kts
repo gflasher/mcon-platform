@@ -33,6 +33,7 @@ kotlin {
             implementation(project(":core:core-ui"))
             implementation(compose.runtime)
             implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
             implementation(libs.koin.core)
         }
     }
