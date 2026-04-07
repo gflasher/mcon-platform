@@ -3,6 +3,7 @@ package com.mcon.agnum.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.luminance
 
 /**
  * Mcon.Agnum 공통 테마 Composable
@@ -30,6 +31,11 @@ fun MconAgnumTheme(
         content     = content
     )
 }
+
+/** MconAgnumTheme 안에서 현재 다크 모드 여부 확인 */
+@Composable
+fun isMconAgnumDarkTheme(): Boolean =
+    !MaterialTheme.colorScheme.surface.luminance().let { it > 0.5f }
 
 /** MconAgnumTheme 안에서 현재 테마의 간격 토큰 접근 */
 val MaterialTheme.mconSpacing get() = MconAgnumSpacing

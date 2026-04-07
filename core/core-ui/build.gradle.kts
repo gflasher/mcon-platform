@@ -34,6 +34,9 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.components.resources)
         }
+        androidMain.dependencies {
+            implementation(compose.preview)
+        }
     }
 }
 
