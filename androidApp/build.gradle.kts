@@ -140,10 +140,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":shared"))
-    implementation(project(":core:core-network"))
-    implementation(project(":core:core-database"))
-    implementation(project(":core:core-ui"))
+    // Mcon.Agnum Maven 의존성 [MCO-670]
+    implementation(libs.mcon.agnum.shared)
+    implementation(libs.mcon.agnum.core.network)
+    implementation(libs.mcon.agnum.core.database)
+    implementation(libs.mcon.agnum.core.ui)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime)

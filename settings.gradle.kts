@@ -28,15 +28,15 @@ dependencyResolutionManagement {
     }
 }
 
+// mcon-agnum Composite Build (로컬 개발 시 Maven 대신 소스 직접 참조) [MCO-670]
+val mconAgnumDir = File(rootDir, "../mcon-agnum")
+if (mconAgnumDir.exists()) {
+    includeBuild(mconAgnumDir)
+}
+
 rootProject.name = "mcon-platform"
 
-include(":bom")
-include(":shared")
 include(":androidApp")
-include(":core:core-network")
-include(":core:core-database")
-include(":core:core-testing")
-include(":core:core-ui")
 include(":features:feature-readalert")
 include(":features:feature-dotbomi")
 include(":features:feature-settings")

@@ -1,4 +1,7 @@
 [versions]
+# Mcon.Agnum 라이브러리
+mcon-agnum = "1.0.0-SNAPSHOT"
+
 # Kotlin & KMP
 kotlin = "2.0.21"
 agp = "8.2.2"
@@ -46,6 +49,14 @@ android-minSdk = "26"
 android-targetSdk = "35"
 
 [libraries]
+# Mcon.Agnum — Maven 배포 아티팩트 [MCO-670]
+mcon-agnum-bom = { module = "com.mc-on:mcon-agnum-bom", version.ref = "mcon-agnum" }
+mcon-agnum-shared = { module = "com.mc-on:shared", version.ref = "mcon-agnum" }
+mcon-agnum-core-ui = { module = "com.mc-on:core-ui", version.ref = "mcon-agnum" }
+mcon-agnum-core-network = { module = "com.mc-on:core-network", version.ref = "mcon-agnum" }
+mcon-agnum-core-database = { module = "com.mc-on:core-database", version.ref = "mcon-agnum" }
+mcon-agnum-core-testing = { module = "com.mc-on:core-testing", version.ref = "mcon-agnum" }
+
 # Kotlin
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin-test" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin-test" }
