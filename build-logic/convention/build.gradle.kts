@@ -4,8 +4,6 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "com.mcon.agnum.buildlogic"
-
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -18,15 +16,33 @@ kotlin {
 }
 
 dependencies {
-    compileOnly(libs.plugins.android.application.get().let { "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version}" })
-    compileOnly(libs.plugins.android.library.get().let { "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version}" })
-    compileOnly(libs.plugins.kotlin.multiplatform.get().let { "org.jetbrains.kotlin:kotlin-gradle-plugin:${it.version}" })
+    compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.android.gradlePlugin)
+    compileOnly(libs.compose.gradlePlugin)
+    compileOnly(libs.compose.compiler.gradlePlugin)
 }
 
-// TODO: [MCO-625] CTO가 컨벤션 플러그인 구현 예정
-// KmpLibraryConventionPlugin, AndroidApplicationConventionPlugin 등
 gradlePlugin {
     plugins {
-        // 플러그인은 CTO가 MCO-625에서 구현
+        register("kmpLibrary") {
+            id = "com.mcon.agnum.kmp.library"
+            implementationClass = "KmpLibraryConventionPlugin"
+        }
+        register("androidApplication") {
+            id = "com.mcon.agnum.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+        register("composeMultiplatform") {
+            id = "com.mcon.agnum.compose.multiplatform"
+            implementationClass = "ComposeMultiplatformConventionPlugin"
+        }
+        register("ktlint") {
+            id = "com.mcon.agnum.ktlint"
+            implementationClass = "KtlintConventionPlugin"
+        }
+        register("detekt") {
+            id = "com.mcon.agnum.detekt"
+            implementationClass = "DetektConventionPlugin"
+        }
     }
 }
