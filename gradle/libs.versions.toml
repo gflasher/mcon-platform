@@ -1,6 +1,6 @@
 [versions]
 # Mcon.Agnum 라이브러리
-mcon-agnum = "1.0.0-SNAPSHOT"
+mcon-agnum = "1.0.0"
 
 # Kotlin & KMP
 kotlin = "2.0.21"

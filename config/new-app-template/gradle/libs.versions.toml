@@ -1,0 +1,44 @@
+# 신규 프로젝트 버전 카탈로그 템플릿 [MCO-673]
+# mcon-agnum BOM 기반 — 버전은 BOM이 일괄 관리
+
+[versions]
+# mcon-agnum 버전 (BOM 참조)
+mcon-agnum = "1.0.0"
+
+# Kotlin & AGP
+kotlin = "2.0.21"
+agp = "8.4.2"
+
+# AndroidX
+androidx-core-ktx = "1.13.1"
+androidx-lifecycle = "2.8.7"
+androidx-activity = "1.9.3"
+
+# Compose
+compose-bom = "2024.12.01"
+
+[libraries]
+# mcon-agnum BOM — 이 하나로 모든 mcon-agnum 모듈 버전 자동 관리
+mcon-agnum-bom = { module = "com.mc-on:mcon-agnum-bom", version.ref = "mcon-agnum" }
+
+# mcon-agnum 모듈 (버전 생략 — BOM이 관리)
+mcon-agnum-shared           = { module = "com.mc-on:shared" }
+mcon-agnum-core-ui          = { module = "com.mc-on:core-ui" }
+mcon-agnum-core-network     = { module = "com.mc-on:core-network" }
+mcon-agnum-core-database    = { module = "com.mc-on:core-database" }
+
+# AndroidX
+androidx-core-ktx            = { module = "androidx.core:core-ktx",                        version.ref = "androidx-core-ktx" }
+androidx-lifecycle-runtime   = { module = "androidx.lifecycle:lifecycle-runtime-ktx",        version.ref = "androidx-lifecycle" }
+androidx-activity-compose    = { module = "androidx.activity:activity-compose",              version.ref = "androidx-activity" }
+
+# Compose BOM
+compose-bom                  = { module = "androidx.compose:compose-bom",                   version.ref = "compose-bom" }
+compose-ui                   = { module = "androidx.compose.ui:ui" }
+compose-ui-tooling-preview   = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-material3            = { module = "androidx.compose.material3:material3" }
+
+[plugins]
+android-application   = { id = "com.android.application",           version.ref = "agp" }
+kotlin-android        = { id = "org.jetbrains.kotlin.android",       version.ref = "kotlin" }
+compose-compiler      = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
