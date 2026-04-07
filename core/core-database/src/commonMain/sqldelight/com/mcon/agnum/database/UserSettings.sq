@@ -1,0 +1,22 @@
+-- UserSettings 테이블: 앱별 사용자 설정
+CREATE TABLE UserSettings (
+    key TEXT NOT NULL PRIMARY KEY,
+    value TEXT NOT NULL,
+    updated_at INTEGER NOT NULL
+);
+
+-- 쿼리 정의
+upsertSetting:
+INSERT OR REPLACE INTO UserSettings(key, value, updated_at)
+VALUES (?, ?, ?);
+
+getSetting:
+SELECT value FROM UserSettings
+WHERE key = ?;
+
+getAllSettings:
+SELECT * FROM UserSettings;
+
+deleteSetting:
+DELETE FROM UserSettings
+WHERE key = ?;

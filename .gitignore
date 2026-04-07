@@ -1,0 +1,42 @@
+### Android ###
+.gradle/
+local.properties
+build/
+*.apk
+*.aab
+*.aar
+*.ap_
+*.dex
+*.class
+/*/build/
+
+### Keystore Files ###
+*.keystore
+*.jks
+
+### IntelliJ IDEA ###
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+### macOS ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+### Kotlin ###
+*.kotlin_module
+
+### Gradle ###
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+.gradle/
+buildSrc/.gradle/
+build-logic/.gradle/
+
+### Local environment ###
+local.properties
+.env
+.env.*
