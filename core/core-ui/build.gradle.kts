@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.paparazzi)         // 1-11: Screenshot 테스트 (MCO-623)
+    alias(libs.plugins.kover)             // 1-12: 커버리지 (MCO-623)
 }
 
 kotlin {
@@ -33,9 +35,14 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.components.resources)
+            api(libs.androidx.lifecycle.viewmodel.kmp)
+            api(libs.androidx.navigation.compose)
         }
         androidMain.dependencies {
             implementation(compose.preview)
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
         }
     }
 }
