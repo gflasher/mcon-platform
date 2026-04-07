@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.paparazzi)         // 1-11: Screenshot 테스트 (MCO-623)
     alias(libs.plugins.kover)             // 1-12: 커버리지 (MCO-623)
+    id("com.mcon.agnum.maven.publish")
 }
 
 kotlin {

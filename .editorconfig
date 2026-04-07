@@ -1,0 +1,59 @@
+# Mcon.Agnum 프로젝트 EditorConfig + ktlint 설정
+# 파일 위치: 프로젝트 루트 .editorconfig
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+max_line_length = 120
+trim_trailing_whitespace = true
+
+[*.{kt,kts}]
+# Kotlin 파일 설정
+indent_size = 4
+ktlint_code_style = ktlint_official
+
+# ktlint 규칙 설정
+# 임포트 정렬 (abc 순서)
+ktlint_standard_import-ordering = enabled
+
+# 와일드카드 임포트 금지 (명시적 임포트만 허용)
+ktlint_standard_no-wildcard-imports = enabled
+
+# 최대 라인 길이 120
+max_line_length = 120
+ktlint_standard_max-line-length = enabled
+
+# trailing comma (함수 인자, 클래스 파라미터)
+ktlint_standard_trailing-comma-on-call-site = enabled
+ktlint_standard_trailing-comma-on-declaration-site = enabled
+
+# Compose 어노테이션 관련 규칙
+ktlint_standard_annotation = enabled
+
+# 불필요한 공백 줄 방지
+ktlint_standard_no-consecutive-blank-lines = enabled
+ktlint_standard_no-empty-first-line-in-class-body = enabled
+
+# 함수 반환 타입 명시 (Unit 제외)
+ktlint_standard_function-return-type-spacing = enabled
+
+# 브레이스 스타일
+ktlint_standard_brace-style = enabled
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.json]
+indent_size = 2
+
+[*.xml]
+indent_size = 4
+
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off

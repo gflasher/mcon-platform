@@ -1,0 +1,104 @@
+# mcon-agnum 릴리스 빌드 워크플로우 [MCO-661]
+# 트리거: v*.*.* 형식의 Git 태그 push (예: v1.0.0, v1.2.3)
+# 동작: 태그에서 버전 추출 → 빌드 → GitHub Releases artifact 업로드
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-rc[0-9]+'
+
+jobs:
+  release:
+    name: Build & Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # GitHub Release 생성 권한
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: wrapper
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          # v1.0.0 → 1.0.0
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          echo "LIB_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Set local Maven repo path
+        run: echo "MCON_LOCAL_MAVEN_REPO=${{ github.workspace }}/build/maven-repo" >> $GITHUB_ENV
+
+      - name: Build & publish all modules
+        run: ./gradlew publishAllPublicationsToLocalDirRepository
+        env:
+          LIB_VERSION: ${{ steps.version.outputs.version }}
+          MCON_LOCAL_MAVEN_REPO: ${{ env.MCON_LOCAL_MAVEN_REPO }}
+
+      - name: Zip Maven artifacts
+        run: |
+          cd build/maven-repo
+          zip -r "../../mcon-agnum-${{ steps.version.outputs.version }}.zip" .
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "Mcon.Agnum ${{ steps.version.outputs.version }}"
+          body: |
+            ## Mcon.Agnum ${{ steps.version.outputs.version }}
+
+            ### 설치 방법
+
+            1. `mcon-agnum-${{ steps.version.outputs.version }}.zip`을 다운로드
+            2. 압축 해제 후 `$MCON_LOCAL_MAVEN_REPO` 경로에 배치
+
+            ```bash
+            # 예시
+            unzip mcon-agnum-${{ steps.version.outputs.version }}.zip -d ~/mcon-maven-repo
+            ```
+
+            ### 의존성 선언 (build.gradle.kts)
+
+            ```kotlin
+            implementation(platform("com.mc-on:mcon-agnum-bom:${{ steps.version.outputs.version }}"))
+            implementation("com.mc-on:core-network")
+            implementation("com.mc-on:core-ui")
+            // ...
+            ```
+          files: |
+            mcon-agnum-${{ steps.version.outputs.version }}.zip
+          draft: false
+          prerelease: ${{ contains(steps.version.outputs.version, '-rc') }}
+
+      - name: Upload Maven artifacts (Actions)
+        uses: actions/upload-artifact@v4
+        with:
+          name: maven-artifacts-${{ steps.version.outputs.version }}
+          path: build/maven-repo/
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Summary
+        run: |
+          echo "## 릴리스 완료" >> $GITHUB_STEP_SUMMARY
+          echo "- **버전**: ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **태그**: ${{ steps.version.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **groupId**: com.mc-on" >> $GITHUB_STEP_SUMMARY
+          echo "- **BOM**: com.mc-on:mcon-agnum-bom:${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
