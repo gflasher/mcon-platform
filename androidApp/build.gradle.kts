@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -150,6 +151,10 @@ dependencies {
     implementation(project(":features:feature-readalert"))
     implementation(project(":features:feature-dotbomi"))
     implementation(project(":features:feature-settings"))
+
+    // Compose Material3 + Icons [MCO-677]
+    implementation(compose.material3)
+    implementation(compose.materialIconsExtended)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime)
