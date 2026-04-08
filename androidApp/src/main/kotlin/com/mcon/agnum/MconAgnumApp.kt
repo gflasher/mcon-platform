@@ -84,7 +84,7 @@ fun MconAgnumApp() {
             }
         }
 
-        val screenContent: @Composable (onMenuClick: () -> Unit) -> Unit = { onMenuClick ->
+        val screenContent: @Composable (onMenuClick: (() -> Unit)?) -> Unit = { onMenuClick ->
             when (selectedDestination) {
                 AppDestination.ReadAlert -> ReadAlertScreen(
                     viewModel = viewModel<ReadAlertViewModel>(),
@@ -109,7 +109,7 @@ fun MconAgnumApp() {
                     }
                 },
             ) {
-                screenContent {}
+                screenContent(null)
             }
         } else {
             ModalNavigationDrawer(

@@ -32,7 +32,7 @@ import com.mcon.agnum.ui.components.atoms.MconAgnumText
 @Composable
 fun DotBomiScreen(
     viewModel: DotBomiViewModel,
-    onMenuClick: () -> Unit = {},
+    onMenuClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -47,11 +47,13 @@ fun DotBomiScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onMenuClick) {
-                        Icon(
-                            imageVector = Icons.Default.Menu,
-                            contentDescription = "메뉴 열기",
-                        )
+                    if (onMenuClick != null) {
+                        IconButton(onClick = onMenuClick) {
+                            Icon(
+                                imageVector = Icons.Default.Menu,
+                                contentDescription = "메뉴 열기",
+                            )
+                        }
                     }
                 },
             )
