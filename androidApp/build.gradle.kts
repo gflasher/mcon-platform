@@ -146,6 +146,11 @@ dependencies {
     implementation(libs.mcon.agnum.core.database)
     implementation(libs.mcon.agnum.core.ui)
 
+    // Feature 모듈 [MCO-675]
+    implementation(project(":features:feature-readalert"))
+    implementation(project(":features:feature-dotbomi"))
+    implementation(project(":features:feature-settings"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.activity.compose)

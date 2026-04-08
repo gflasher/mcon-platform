@@ -3,8 +3,12 @@ package com.mcon.agnum.feature.dotbomi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
@@ -28,6 +32,7 @@ import com.mcon.agnum.ui.components.atoms.MconAgnumText
 @Composable
 fun DotBomiScreen(
     viewModel: DotBomiViewModel,
+    onMenuClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -40,6 +45,14 @@ fun DotBomiScreen(
                         text = "닷보미",
                         style = MaterialTheme.typography.titleLarge,
                     )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onMenuClick) {
+                        Icon(
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = "메뉴 열기",
+                        )
+                    }
                 },
             )
         },
